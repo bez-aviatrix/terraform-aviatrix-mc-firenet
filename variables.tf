@@ -2,8 +2,9 @@ variable "transit_module" {
   description = "Refer to the mc-transit module that built the transit. This module plugs directly into it's output to build firenet on top of it."
 
   validation {
-    condition     = var.transit_module.transit_gateway.enable_transit_firenet == true
-    error_message = "Firenet is not enabled on the transit module. Set enable_transit_firenet to true."
+    condition     = ( var.transit_module.transit_gateway.enable_transit_firenet == true ||
+                      var.transit_module.transit_gateway.enable_firenet == true )
+    error_message = "Firenet is not enabled on the transit module. Set enable_transit_firenet or enable_firenet to true."
   }
 
   validation {
